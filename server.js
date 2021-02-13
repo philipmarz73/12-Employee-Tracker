@@ -285,7 +285,7 @@ function removeDepartment() {
         {
           type: "input",
           name: "answer",
-          message: "delete role by id",
+          message: "delete department by id",
         }
     ]};
 
@@ -301,7 +301,7 @@ inquirer.prompt(queryDelete).then((response) => {
       prompt();
     });
   });
-// delete employee information
+// remove employee information query
 function removeEmployee() {
     const query = `SELECT id, firstName, lastName, roleID, managerID
       FROM employee`;
@@ -312,16 +312,16 @@ function removeEmployee() {
       console.log("please select id when deleting row");
     })
 }
-// delete employee role
-const roleDelete = [
+// delete employee by ID 
+const employeeDelete = [
     {
       type: "input",
       name: "answer",
-      message: "delete role by id",
+      message: "delete employee by id",
     },
   ];
-
-  inquirer.prompt(roleDelete).then((response) => {
+// delete employee record from database in response to query and check for errors
+  inquirer.prompt(employeeDelete).then((response) => {
     console.log(response.answer);
 
     const sql = `DELETE FROM employee WHERE id = ?`;
@@ -332,4 +332,32 @@ const roleDelete = [
       prompt();
     });
   });
-
+// delete employee role method
+function removeRole() {
+    const query = `SELECT id, TITLE, SALARY, DEPARTMENT_ID
+        FROM role`;
+    db.query(query, (err, res) => {
+      if (err) throw err;
+      console.table(res);
+      console.log("");
+      console.log("please select id when deleting row");
+    });
+  
+      const roleDelete = [
+        {
+          type: "input",
+          name: "answer",
+          message: "delete role by id",
+        },
+      ]};
+// remove employee role from database in response to query and check for errors
+      inquirer.prompt(roleDelete).then((response) => {
+        console.log(response.answer);
+  
+        const sql = `DELETE FROM role WHERE id = ?`;
+        db.query(sql, response.answer, (err, res) => {
+          if (err) throw err;
+          console.log("record has been removed");
+          prompt();
+        })
+      });
