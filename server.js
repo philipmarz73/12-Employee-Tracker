@@ -126,7 +126,7 @@ function addDepartment() {
         type: "input",
         name: "Name",
         message: "please enter department name",
-        description: "department name info",
+        description: "department name",
       },
     ]};
 // inserting response into Department table
@@ -146,3 +146,55 @@ function addDepartment() {
         );
       });
     
+// add employee input
+function addEmployee() {
+    const employeeData = [
+      {
+        type: "input",
+        name: "firstName",
+        message: "please enter first  name",
+        description: "first name",
+      },
+  
+      {
+        type: "input",
+        name: "lastName",
+        message: "please enter last  name",
+        description: "last name",
+      },
+  
+      {
+        type: "input",
+        name: "roleID",
+        message: "please enter role ID",
+        description: "role ID",
+      },
+  
+      {
+        type: "input",
+        name: "mgrID",
+        message: "please enter manager id",
+        description: "mgr id",
+      },
+    ]}
+    // add responses to emplyee table
+    inquirer.prompt(employeeData).then((response) => {
+        console.log(response);
+    
+        db.query(
+          "INSERT INTO employee SET ?",
+          {
+            firstName: response.firstName,
+            lastName: response.lastName,
+            roleID: response.roleID,
+            managerID: response.mgrID,
+          },
+          (err, res) => {
+            if (err) throw err;
+            console.log("record inserted into employee table");
+            console.log("");
+            console.log("");
+            prompt();
+          }
+        );
+      });
