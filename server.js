@@ -397,7 +397,7 @@ function updateDepartment() {
     })
   })
 },  
-    // employee update
+// employee update
     function updateEmployee() {
         const query = `SELECT id, firstName, lastName, roleID, managerID FROM employee`;
         db.query(query, (err, res) => {
@@ -406,7 +406,7 @@ function updateDepartment() {
           console.log("");
           console.log("please select id(s) when updating row");
         
-          const employeeUpdate = {[
+          const employeeUpdate = [
             {
               type: "input",
               name: "employee_id",
@@ -417,9 +417,31 @@ function updateDepartment() {
               type: "input",
               name: "role_id",
               message: "Enter role id",
-            },
+            }
           ]
-        }
+        
+        inquirer.prompt(employeeUpdate).then((response) => {
+            const sql = `UPDATE employee SET roleID = ?  WHERE id = ?`;
+            let data = [response.role_id, response.employee_id];
+      
+            db.query(sql, data, (err, res) => {
+              if (err) throw err;
+              console.log("record has been updated");
+              prompt();
+            });
+          });
+// employee role update
+function updateRole() {
+    const query = `SELECT id, SALARY
+        FROM role`;
+    db.query(query, (err, res) => {
+      if (err) throw err;
+      console.table(res);
+      console.log("");
+      console.log("please select id when updating row");
+
+      
+
 
 
 
