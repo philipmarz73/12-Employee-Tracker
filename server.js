@@ -271,3 +271,34 @@ function viewDepartments() {
       prompt();
     });
   }  
+//   delete data from the three tables
+function removeDepartment() {
+    const query = `SELECT id, NAME
+      FROM department`;
+    db.query(query, (err, res) => {
+      if (err) throw err;
+      console.table(res);
+      console.log("");
+      console.log("please select id when deleting row")})
+  
+      const queryDelete = [
+        {
+          type: "input",
+          name: "answer",
+          message: "delete role by id",
+        }
+    ]};
+
+// delete from database in response to query and check for errors
+inquirer.prompt(queryDelete).then((response) => {
+    console.log(response.answer);
+
+    const sql = `DELETE FROM department WHERE id = ?`;
+
+    db.query(sql, response.answer, (err, res) => {
+      if (err) throw err;
+      console.log("record has been removed");
+      prompt();
+    });
+  });
+
