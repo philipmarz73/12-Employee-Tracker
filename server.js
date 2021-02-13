@@ -35,3 +35,26 @@ const promptMessage = {
     updateRole: "Update Role",
     exit: "Exit",
 }
+
+function prompt() {
+    inquirer
+      .prompt({
+        name: "action",
+        type: "list",
+        message: "What would you like to do?",
+        choices: [
+          promptMessages.viewEmployees,
+          promptMessages.viewDepartment,
+          promptMessages.viewRoles,
+          promptMessages.addDepartment,
+          promptMessages.addEmployee,
+          promptMessages.addRole,
+          promptMessages.removeEmployee,
+          promptMessages.removeDepartment,
+          promptMessages.removeRole,
+          promptMessages.updateRole,
+          promptMessages.updateEmployee,
+          promptMessages.updateDepartment,
+          promptMessages.exit,
+        ],
+      })
