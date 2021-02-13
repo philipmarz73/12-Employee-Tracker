@@ -119,7 +119,7 @@ function prompt() {
                     }
                   });
             
-// input to add Department 
+// get input to add Department 
 function addDepartment() {
     const deptData = [
       {
@@ -146,9 +146,9 @@ function addDepartment() {
         );
       });
     
-// add employee input
+// get employee input
 function addEmployee() {
-    const employeeData = [
+    const employeeResponse = [
       {
         type: "input",
         name: "firstName",
@@ -177,8 +177,8 @@ function addEmployee() {
         description: "mgr id",
       },
     ]}
-    // add responses to emplyee table
-    inquirer.prompt(employeeData).then((response) => {
+    // add responses to employee table
+    inquirer.prompt(employeeResponse).then((response) => {
         console.log(response);
     
         db.query(
@@ -198,3 +198,46 @@ function addEmployee() {
           }
         );
       });
+    // get Role responses
+    function addRole() {
+        const roleResponse = [
+          {
+            type: "input",
+            name: "titleInfo",
+            message: "please enter job title",
+            description: "title info",
+          },
+      
+          {
+            type: "input",
+            name: "salary",
+            message: " Please enter salary",
+            description: "salary",
+          },
+      
+          {
+            type: "input",
+            name: "department",
+            message: "Please enter department",
+            description: "department",
+          },
+        ]}; 
+// add responses to Role table 
+        inquirer.prompt(roleResponse).then((response) => {
+            db.query(
+              "INSERT INTO role SET ?",
+              {
+                TITLE: response.titleInfo,
+                SALARY: response.salary,
+                DEPARTMENT_ID: response.department,
+              },
+              (err, res) => {
+                if (err) throw err;
+                console.log("record inserted into Role Table");
+                console.log("");
+                console.log("");
+                prompt();
+              }
+            );
+          });
+         
