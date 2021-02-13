@@ -1,6 +1,6 @@
 const mysql = require("mysql")
 const inquirer = require("inquirer");
-const {response}= require("express");
+const {.response}= require("express");
 require("console.table");
 // requiring mySql, inquirer and express packages and console.table to 
 // test in Terminal 
@@ -8,7 +8,7 @@ require("console.table");
 // define db, make localhost connection
 const db = mysql.createConnection({
     host: "localhost",
-    port: 3306
+    port: 3306,
     user: "root",
     password: "MajiNo.1!",
     database: "employee_tracker",
@@ -294,6 +294,37 @@ inquirer.prompt(queryDelete).then((response) => {
     console.log(response.answer);
 
     const sql = `DELETE FROM department WHERE id = ?`;
+
+    db.query(sql, response.answer, (err, res) => {
+      if (err) throw err;
+      console.log("record has been removed");
+      prompt();
+    });
+  });
+// delete employee information
+function removeEmployee() {
+    const query = `SELECT id, firstName, lastName, roleID, managerID
+      FROM employee`;
+    db.query(query, (err, res) => {
+      if (err) throw err;
+      console.table(res);
+      console.log("");
+      console.log("please select id when deleting row");
+    })
+}
+// delete employee role
+const roleDelete = [
+    {
+      type: "input",
+      name: "answer",
+      message: "delete role by id",
+    },
+  ];
+
+  inquirer.prompt(roleDelete).then((response) => {
+    console.log(response.answer);
+
+    const sql = `DELETE FROM employee WHERE id = ?`;
 
     db.query(sql, response.answer, (err, res) => {
       if (err) throw err;
