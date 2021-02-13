@@ -119,7 +119,7 @@ function prompt() {
                     }
                   });
             
-// get input to add Department 
+// get input to add to Department 
 function addDepartment() {
     const deptData = [
       {
@@ -331,9 +331,9 @@ const employeeDelete = [
       console.log("record has been removed");
       prompt();
     });
-  });
-// delete employee role method
-function removeRole() {
+  
+// 'delete employee role' method
+function deleteRole() {
     const query = `SELECT id, TITLE, SALARY, DEPARTMENT_ID
         FROM role`;
     db.query(query, (err, res) => {
@@ -348,8 +348,9 @@ function removeRole() {
           type: "input",
           name: "answer",
           message: "delete role by id",
-        }],
-    };
+        },
+    ];
+    
 // remove employee role from database in response to query and check for errors
       inquirer.prompt(roleDelete).then((response) => {
         console.log(response.answer);
@@ -418,7 +419,7 @@ function updateDepartment() {
               name: "role_id",
               message: "Enter role id",
             }
-          ]
+          ];
         
         inquirer.prompt(employeeUpdate).then((response) => {
             const sql = `UPDATE employee SET roleID = ?  WHERE id = ?`;
@@ -428,8 +429,10 @@ function updateDepartment() {
               if (err) throw err;
               console.log("record has been updated");
               prompt();
-            });
-          });
+            })
+        })
+      },     
+          
 // employee role update
 function updateRole() {
     const query = `SELECT id, SALARY
@@ -440,8 +443,35 @@ function updateRole() {
       console.log("");
       console.log("please select id when updating row");
 
-      
-
+      const roleUpdate = [
+        {
+          type: "input",
+          name: "role_id",
+          message: "Enter role id",
+        },
+  
+        {
+          type: "input",
+          name: "salary",
+          message: "Enter Salary",
+        },
+      ];
+  
+      inquirer.prompt(roleUpdate).then((response) => {
+        console.log(response.role_id);
+        console.log(response.salary);
+  
+        const sql = `UPDATE role SET salary = ? where id = ?`;
+        let data = [response.salary, response.role_id];
+  
+        db.query(sql, data, (err, res) => {
+          if (err) throw err;
+          console.log("record has been updated");
+          prompt();
+        });
+      });
+    });
+}
 
 
 
