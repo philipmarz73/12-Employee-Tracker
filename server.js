@@ -240,4 +240,14 @@ function addEmployee() {
               }
             );
           });
-         
+
+//enable 'view': departments, employees, roles
+function viewDepartments() {
+    const query = `SELECT id, NAME
+    FROM department `;
+    db.query(query, (err, res) => {
+      if (err) throw err;
+      console.table(res);
+      prompt();
+    });
+  }
