@@ -60,7 +60,7 @@ function prompt() {
     }
 )}
 // logging answers to prompts
-      .then((answer) => {
+     answer.then((answer) => {
           console.log("answer", answer);
           switch (answer.action)  {
             case promptMessages.viewDepartment:
@@ -119,3 +119,13 @@ function prompt() {
                     }
                   });
             
+// input add Department 
+function addDepartment() {
+    const deptData = [
+      {
+        type: "input",
+        name: "Name",
+        message: "please enter department name",
+        description: "department name info",
+      },
+    ]}
