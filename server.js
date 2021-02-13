@@ -251,3 +251,23 @@ function viewDepartments() {
       prompt();
     });
   }
+  function viewEmployees() {
+    const query = `SELECT id, firstName, lastName,roleID,managerID
+       FROM employee`;
+    db.query(query, (err, res) => {
+      if (err) throw err;
+      console.table(res);
+      prompt();
+    });
+  }
+  
+  function viewRoles() {
+    const query = `SELECT id, title, salary, department_ID
+    FROM role`;
+  
+    db.query(query, (err, res) => {
+      if (err) throw err;
+      console.table(res);
+      prompt();
+    });
+  }  
