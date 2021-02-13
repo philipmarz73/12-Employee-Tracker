@@ -287,7 +287,7 @@ function removeDepartment() {
           name: "answer",
           message: "delete department by id",
         }
-    ]};
+    ];
 
 // delete from database in response to query and check for errors
 inquirer.prompt(queryDelete).then((response) => {
@@ -299,8 +299,8 @@ inquirer.prompt(queryDelete).then((response) => {
       if (err) throw err;
       console.log("record has been removed");
       prompt();
-    });
-  });
+    },
+
 // remove employee information query
 function removeEmployee() {
     const query = `SELECT id, firstName, lastName, roleID, managerID
@@ -311,7 +311,7 @@ function removeEmployee() {
       console.log("");
       console.log("please select id when deleting row");
     })
-}
+});
 // delete employee by ID 
 const employeeDelete = [
     {
@@ -348,8 +348,8 @@ function removeRole() {
           type: "input",
           name: "answer",
           message: "delete role by id",
-        },
-      ]};
+        }],
+    };
 // remove employee role from database in response to query and check for errors
       inquirer.prompt(roleDelete).then((response) => {
         console.log(response.answer);
@@ -360,7 +360,7 @@ function removeRole() {
           console.log("record has been removed");
           prompt();
         })
-      });
+      
 // add update functions
 function updateDepartment() {
     const query = `SELECT id, NAME
@@ -382,10 +382,11 @@ function updateDepartment() {
           type: "input",
           name: "NAME",
           message: "Enter Department name ",
-        },
+        }
       ];
+    
     // update the table
-    inquirer.prompt(questions6).then((response) => {
+    inquirer.prompt(deptUpdate).then((response) => {
         const sql = `UPDATE department SET NAME = ? where id = ?`;
         let data = [response.NAME, response.department_id];
   
@@ -393,5 +394,34 @@ function updateDepartment() {
           if (err) throw err;
           console.log("record has been updated")
           prompt()
-        });
-    
+    })
+  })
+},  
+    // employee update
+    function updateEmployee() {
+        const query = `SELECT id, firstName, lastName, roleID, managerID FROM employee`;
+        db.query(query, (err, res) => {
+          if (err) throw err;
+          console.table(res);
+          console.log("");
+          console.log("please select id(s) when updating row");
+        
+          const employeeUpdate = {[
+            {
+              type: "input",
+              name: "employee_id",
+              message: "Enter employee id on far left",
+            },
+      
+            {
+              type: "input",
+              name: "role_id",
+              message: "Enter role id",
+            },
+          ]
+        }
+
+
+
+      
+      
