@@ -20,7 +20,7 @@ db.connect((err) => {
     prompt();
 });
 // set promptMessage variable
-const promptMessage = {
+const promptMessages = {
     viewDepartment: "View All Departments",
     viewEmployees: "View All Employees",
     viewRoles: "View All Roles",
@@ -34,8 +34,8 @@ const promptMessage = {
     updateEmployee: "Update Employee",
     updateRole: "Update Role",
     exit: "Exit",
-}
-
+};
+// create prompt function for user actions
 function prompt() {
     inquirer
       .prompt({
@@ -43,18 +43,79 @@ function prompt() {
         type: "list",
         message: "What would you like to do?",
         choices: [
+          promptMessages.viewDepartments,
           promptMessages.viewEmployees,
-          promptMessages.viewDepartment,
           promptMessages.viewRoles,
           promptMessages.addDepartment,
           promptMessages.addEmployee,
           promptMessages.addRole,
-          promptMessages.removeEmployee,
           promptMessages.removeDepartment,
+          promptMessages.removeEmployee,
           promptMessages.removeRole,
-          promptMessages.updateRole,
-          promptMessages.updateEmployee,
           promptMessages.updateDepartment,
+          promptMessages.updateEmployee,
+          promptMessages.updateRole,
           promptMessages.exit,
         ],
-      })
+    }
+)}
+// logging answers to prompts
+      .then((answer) => {
+          console.log("answer", answer);
+          switch (answer.action)  {
+            case promptMessages.viewDepartment:
+                viewDepartments();
+                    break;
+
+            case promptMessages.viewEmployees:
+                viewEmployees();
+                    break;
+                  
+            case promptMessages.viewRoles:
+                viewRoles();
+                    break;
+             
+            case promptMessages.addDepartment:
+                addDepartment();
+                    break;
+          
+            case promptMessages.addEmployee:
+                addEmployee();
+                    break;
+          
+            case promptMessages.addRole:
+                addRole();
+                    break;  
+            
+            case promptMessages.removeDepartment:
+                removeDepartment();
+                    break;
+
+            case promptMessages.removeEmployee:
+                removeEmployee();
+                    break;
+                      
+            case promptMessages.removeRole:
+                removeRole();
+                    break;
+                    
+            
+            case promptMessages.updateDepartment:
+                updateDepartment();
+                    break;  
+                      
+            case promptMessages.updateEmployee:
+                updateEmployee();
+                    break;
+              
+            case promptMessages.updateRole:
+                updateRole();
+                    break;
+              
+              
+            case promptMessages.exit:
+                db.end();
+                    break;
+                    }
+                  });
+            
