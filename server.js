@@ -119,7 +119,7 @@ function prompt() {
                     }
                   });
             
-// input add Department 
+// input to add Department 
 function addDepartment() {
     const deptData = [
       {
@@ -128,4 +128,21 @@ function addDepartment() {
         message: "please enter department name",
         description: "department name info",
       },
-    ]}
+    ]};
+// inserting response into Department table
+    inquirer.prompt(deptData).then((response) => {
+        console.log(response);
+    
+        db.query(
+          "INSERT INTO department SET ?",
+          {
+            NAME: response.Name,
+          },
+          (err, res) => {
+            if (err) throw err;
+            console.log("record inserted into Department Table");
+            prompt();
+          }
+        );
+      });
+    
