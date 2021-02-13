@@ -454,8 +454,8 @@ function updateRole() {
           name: "salary",
           message: "Enter Salary",
         },
-      ];
-  
+      ]
+    })
       inquirer.prompt(roleUpdate).then((response) => {
         console.log(response.role_id);
         console.log(response.salary);
@@ -467,10 +467,10 @@ function updateRole() {
           if (err) throw err;
           console.log("record has been updated");
           prompt();
-      });
-      });
-    });
-  }
+      })
+      })
+    
+}
 
 
 
