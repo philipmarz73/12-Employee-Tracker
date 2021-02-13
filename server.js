@@ -19,3 +19,19 @@ db.connect((err) => {
     console.log("connected");
     prompt();
 });
+// set promptMessage variable
+const promptMessage = {
+    viewDepartment: "View All Departments",
+    viewEmployees: "View All Employees",
+    viewRoles: "View All Roles",
+    addDepartment: "Add Department",
+    addEmployee: "Add An Employee",
+    addRole: "Add Role",
+    removeDepartment: "Remove Department",
+    removeEmployee: "Remove An Employee",
+    removeRole: "Remove Role",
+    updateDepartment: "Update Department",
+    updateEmployee: "Update Employee",
+    updateRole: "Update Role",
+    exit: "Exit",
+}
