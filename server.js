@@ -1,7 +1,7 @@
 const mysql = require("mysql")
 const inquirer = require("inquirer");
-const {.response}= require("express");
-require("console.table");
+const {response} = require("express");
+const cTable = require("console.table");
 // requiring mySql, inquirer and express packages and console.table to 
 // test in Terminal 
 
@@ -361,3 +361,37 @@ function removeRole() {
           prompt();
         })
       });
+// add update functions
+function updateDepartment() {
+    const query = `SELECT id, NAME
+      FROM department`;
+    db.query(query, (err, res) => {
+      if (err) throw err;
+      console.table(res);
+      console.log("");
+      console.log("please select id when updating row");
+    //   prompts for update information
+      const deptUpdate = [
+        {
+          type: "input",
+          name: "department_id",
+          message: "Enter Department id",
+        },
+  
+        {
+          type: "input",
+          name: "NAME",
+          message: "Enter Department name ",
+        },
+      ];
+    // update the table
+    inquirer.prompt(questions6).then((response) => {
+        const sql = `UPDATE department SET NAME = ? where id = ?`;
+        let data = [response.NAME, response.department_id];
+  
+        db.query(sql, data, (err, res) => {
+          if (err) throw err;
+          console.log("record has been updated")
+          prompt()
+        });
+    
