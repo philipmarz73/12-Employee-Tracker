@@ -1,6 +1,5 @@
 const mysql = require("mysql")
 const inquirer = require("inquirer");
-const {response} = require("express");
 const cTable = require("console.table");
 // requiring mySql, inquirer and express packages and console.table to 
 // test in Terminal 
@@ -468,10 +467,10 @@ function updateRole() {
           if (err) throw err;
           console.log("record has been updated");
           prompt();
-        });
+      });
       });
     });
-}
+  }
 
 
 
