@@ -127,7 +127,7 @@ function addDepartment() {
         message: "please enter department name",
         description: "department name",
       // },
-    }]
+      }]};
 // inserting response into Department table
     inquirer.prompt(deptData).then((response) => {
         console.log(response);
