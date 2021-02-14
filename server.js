@@ -175,7 +175,7 @@ function addEmployee() {
         message: "please enter manager id",
         description: "mgr id",
       },
-    ]};
+    ]
     // add responses to employee table
     inquirer.prompt(employeeResponse).then((response) => {
         console.log(response);
@@ -197,6 +197,7 @@ function addEmployee() {
           }
         );
       });
+    };
     // get Role responses
     function addRole() {
         const roleResponse = [
@@ -220,7 +221,7 @@ function addEmployee() {
             message: "Please enter department",
             description: "department",
           },
-        ]}; 
+        ] 
 // add responses to Role table 
         inquirer.prompt(roleResponse).then((response) => {
             db.query(
@@ -239,7 +240,7 @@ function addEmployee() {
               }
             );
           });
-
+        };
 //enable 'view': departments, employees, roles
 function viewDepartments() {
     const query = `SELECT id, NAME
@@ -286,8 +287,8 @@ function removeDepartment() {
           name: "answer",
           message: "delete department by id",
         }
-    ];
-
+    ]
+ 
 // delete from database in response to query and check for errors
 inquirer.prompt(queryDelete).then((response) => {
     console.log(response.answer);
@@ -298,8 +299,9 @@ inquirer.prompt(queryDelete).then((response) => {
       if (err) throw err;
       console.log("record has been removed");
       prompt();
-    },
-
+    });
+  });
+};
 // remove employee information query
 function removeEmployee() {
     const query = `SELECT id, firstName, lastName, roleID, managerID
@@ -310,7 +312,7 @@ function removeEmployee() {
       console.log("");
       console.log("please select id when deleting row");
     })
-});
+};
 // delete employee by ID 
 const employeeDelete = [
     {
@@ -333,16 +335,17 @@ const employeeDelete = [
   
 // 'delete employee role' method
 function deleteRole() {
-    const query = `SELECT id, TITLE, SALARY, DEPARTMENT_ID
+    const query = `SELECT id, title, salary, department_id
         FROM role`;
     db.query(query, (err, res) => {
       if (err) throw err;
       console.table(res);
       console.log("");
       console.log("please select id when deleting row");
-    });
-  
-      const roleDelete = [
+    }) 
+};
+      
+    const roleDelete = [
         {
           type: "input",
           name: "answer",
@@ -360,7 +363,7 @@ function deleteRole() {
           console.log("record has been removed");
           prompt();
         })
-      
+      });
 // add update functions
 function updateDepartment() {
     const query = `SELECT id, NAME
@@ -383,8 +386,8 @@ function updateDepartment() {
           name: "NAME",
           message: "Enter Department name ",
         }
-      ];
-    
+      ]
+  
     // update the table
     inquirer.prompt(deptUpdate).then((response) => {
         const sql = `UPDATE department SET NAME = ? where id = ?`;
@@ -394,9 +397,11 @@ function updateDepartment() {
           if (err) throw err;
           console.log("record has been updated")
           prompt()
+      });   
     })
   })
-},  
+};
+
 // employee update
     function updateEmployee() {
         const query = `SELECT id, firstName, lastName, roleID, managerID FROM employee`;
@@ -418,8 +423,8 @@ function updateDepartment() {
               name: "role_id",
               message: "Enter role id",
             }
-          ];
-        
+          ]
+       
         inquirer.prompt(employeeUpdate).then((response) => {
             const sql = `UPDATE employee SET roleID = ?  WHERE id = ?`;
             let data = [response.role_id, response.employee_id];
@@ -430,11 +435,13 @@ function updateDepartment() {
               prompt();
             })
         })
-      },     
+      });
+    }; 
+
           
 // employee role update
 function updateRole() {
-    const query = `SELECT id, SALARY
+    const query = `SELECT id, salary
         FROM role`;
     db.query(query, (err, res) => {
       if (err) throw err;
@@ -455,21 +462,21 @@ function updateRole() {
           message: "Enter Salary",
         },
       ]
-    })
+    
       inquirer.prompt(roleUpdate).then((response) => {
         console.log(response.role_id);
         console.log(response.salary);
   
         const sql = `UPDATE role SET salary = ? where id = ?`;
         let data = [response.salary, response.role_id];
-      })
+     
         db.query(sql, data, (err, res) => {
           if (err) throw err;
           console.log("record has been updated");
           prompt();
-      
-      })
-    
+        })
+      });
+    });
 }
 
 
