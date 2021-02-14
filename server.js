@@ -126,8 +126,8 @@ function addDepartment() {
         name: "Name",
         message: "please enter department name",
         description: "department name",
-      },
-    ]};
+      // },
+    }]
 // inserting response into Department table
     inquirer.prompt(deptData).then((response) => {
         console.log(response);
@@ -175,7 +175,7 @@ function addEmployee() {
         message: "please enter manager id",
         description: "mgr id",
       },
-    ]}
+    ]};
     // add responses to employee table
     inquirer.prompt(employeeResponse).then((response) => {
         console.log(response);
@@ -462,12 +462,12 @@ function updateRole() {
   
         const sql = `UPDATE role SET salary = ? where id = ?`;
         let data = [response.salary, response.role_id];
-  
+      })
         db.query(sql, data, (err, res) => {
           if (err) throw err;
           console.log("record has been updated");
           prompt();
-      })
+      
       })
     
 }
