@@ -1,6 +1,6 @@
 const mysql = require("mysql")
 const inquirer = require("inquirer");
-console.table = require("console.table");
+const consoleTable = require("console.table");
 // requiring mySql, inquirer and express packages and console.table to 
 // test in Terminal 
 
@@ -20,7 +20,7 @@ db.connect((err) => {
 });
 // set promptMessage variable
 const promptMessages = {
-    viewDepartment: "View All Departments",
+    viewDepartments: "View All Departments",
     viewEmployees: "View All Employees",
     viewRoles: "View All Roles",
     addDepartment: "Add Department",
@@ -62,7 +62,7 @@ function prompt() {
     .then((answer) => {
           console.log("answer", answer);
           switch (answer.action)  {
-            case promptMessages.viewDepartment:
+            case promptMessages.viewDepartments:
                 viewDepartments();
                     break;
 
@@ -252,7 +252,7 @@ function viewDepartments() {
     });
   }
   function viewEmployees() {
-    const query = `SELECT id, firstName, lastName,roleID,managerID
+    const query = `SELECT id, firstName, lastName, role_ID, manager_ID
        FROM employee`;
     db.query(query, (err, res) => {
       if (err) throw err;
@@ -304,7 +304,7 @@ inquirer.prompt(queryDelete).then((response) => {
 };
 // remove employee information query
 function removeEmployee() {
-    const query = `SELECT id, firstName, lastName, roleID, managerID
+    const query = `SELECT id, firstName, lastName, role_ID, manager_ID
       FROM employee`;
     db.query(query, (err, res) => {
       if (err) throw err;
@@ -336,7 +336,7 @@ const employeeDelete = [
 });
 }
 // 'delete employee role' method
-function deleteRole() {
+function removeRole() {
     const query = `SELECT id, title, salary, department_id
         FROM role`;
     db.query(query, (err, res) => {
@@ -408,7 +408,7 @@ function updateDepartment() {
 
 // employee update
     function updateEmployee() {
-        const query = `SELECT id, firstName, lastName, roleID, managerID FROM employee`;
+        const query = `SELECT id, firstName, lastName, role_ID, manager_ID FROM employee`;
         db.query(query, (err, res) => {
           if (err) throw err;
           console.table(res);
@@ -430,7 +430,7 @@ function updateDepartment() {
           ]
        
         inquirer.prompt(employeeUpdate).then((response) => {
-            const sql = `UPDATE employee SET roleID = ?  WHERE id = ?`;
+            const sql = `UPDATE employee SET role_ID = ?  WHERE id = ?`;
             let data = [response.role_id, response.employee_id];
       
             db.query(sql, data, (err, res) => {
