@@ -1,6 +1,6 @@
 const mysql = require("mysql")
 const inquirer = require("inquirer");
-const cTable = require("console.table");
+console.table = require("console.table");
 // requiring mySql, inquirer and express packages and console.table to 
 // test in Terminal 
 
@@ -56,10 +56,10 @@ function prompt() {
           promptMessages.updateRole,
           promptMessages.exit,
         ],
-    }
-)}
+    
+})
 // logging answers to prompts
-     answer.then((answer) => {
+    .then((answer) => {
           console.log("answer", answer);
           switch (answer.action)  {
             case promptMessages.viewDepartment:
@@ -117,7 +117,7 @@ function prompt() {
                     break;
                     }
                   });
-            
+                }
 // get input to add to Department 
 function addDepartment() {
     const deptData = [
@@ -127,7 +127,7 @@ function addDepartment() {
         message: "please enter department name",
         description: "department name",
       // },
-      }]};
+      }];
 // inserting response into Department table
     inquirer.prompt(deptData).then((response) => {
         console.log(response);
@@ -144,7 +144,7 @@ function addDepartment() {
           }
         );
       });
-    
+    }
 // get employee input
 function addEmployee() {
     const employeeResponse = [
@@ -175,7 +175,7 @@ function addEmployee() {
         message: "please enter manager id",
         description: "mgr id",
       },
-    ]
+    ];
     // add responses to employee table
     inquirer.prompt(employeeResponse).then((response) => {
         console.log(response);
@@ -240,7 +240,7 @@ function addEmployee() {
               }
             );
           });
-        };
+        }
 //enable 'view': departments, employees, roles
 function viewDepartments() {
     const query = `SELECT id, NAME
@@ -311,8 +311,8 @@ function removeEmployee() {
       console.table(res);
       console.log("");
       console.log("please select id when deleting row");
-    })
-};
+    
+
 // delete employee by ID 
 const employeeDelete = [
     {
@@ -332,7 +332,9 @@ const employeeDelete = [
       console.log("record has been removed");
       prompt();
     });
-  
+  });
+});
+}
 // 'delete employee role' method
 function deleteRole() {
     const query = `SELECT id, title, salary, department_id
@@ -342,8 +344,8 @@ function deleteRole() {
       console.table(res);
       console.log("");
       console.log("please select id when deleting row");
-    }) 
-};
+   
+
       
     const roleDelete = [
         {
@@ -362,8 +364,10 @@ function deleteRole() {
           if (err) throw err;
           console.log("record has been removed");
           prompt();
-        })
+        });
       });
+    });
+  }
 // add update functions
 function updateDepartment() {
     const query = `SELECT id, NAME
