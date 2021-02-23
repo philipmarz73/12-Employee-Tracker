@@ -18,7 +18,7 @@ In addition to requiring proper construction of the database tables to be used i
 
 ## Video Link
 
-This link will show the basic functionality achieved by this application:
+This link will show the basic functionality achieved by this application: https://drive.google.com/file/d/1h8h_3nxR5-ZRe6KlZ36nCtO0eIYaGBaS/view
 Thanks for watching!
 
 
