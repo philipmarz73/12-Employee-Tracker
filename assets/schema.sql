@@ -22,8 +22,8 @@ id INTEGER(11) AUTO_INCREMENT NOT NULL,
 firstName VARCHAR(100) NOT NULL,
 lastName VARCHAR(100) NOT NULL,
 role_id INTEGER NOT NULL,
+manager_id INTEGER,
 FOREIGN KEY (role_id) REFERENCES role(id),
-manager_id INTEGER NOT NULL,
 FOREIGN KEY (manager_id) REFERENCES employee(id),
 PRIMARY KEY (id)
 );
