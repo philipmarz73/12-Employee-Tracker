@@ -24,7 +24,7 @@ Thanks for watching!
 
 ## License
 
-copy&;MIT
+&copy;MIT
 
 
 
